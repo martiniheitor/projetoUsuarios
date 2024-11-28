@@ -1,8 +1,5 @@
 package com.heitor.workshopmysql.services;
 
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,27 +17,14 @@ import com.heitor.workshopmysql.util.CPFValidator;
 @Service
 public class UserService {
 
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
 	@Autowired
 	private UserRepository userRepository;
 
 	public User create(User user) {
-		logger.debug("Criando usuário: {}", user);
-
-		if (!CPFValidator.isValidCPF(user.getCpf())) {
-			logger.error("CPF inválido: {}", user.getCpf());
-			throw new InvalidCpfException("CPF inválido!");
-		}
-
-		user.setDataNascimento(LocalDate.parse(user.getDataNascimento().toString(), formatter));
-		int idade = getIdade(user);
-		user.setIdade(idade); // Atualiza a idade
-		User savedUser = userRepository.save(user);
-
-		logger.info("Usuário criado com sucesso: {}", savedUser);
-		return savedUser;
+		validateUser(user);
+		return userRepository.save(user);
 	}
 
 	public List<User> findAll() {
@@ -59,25 +43,12 @@ public class UserService {
 	}
 
 	public User update(Long id, User user) {
-		logger.debug("Atualizando usuário com ID: {}", id);
-
 		if (!userRepository.existsById(id)) {
-			logger.error("Usuário não encontrado com ID: {}", id);
-			throw new UserNotFoundException("Usuário não encontrado!");
+			throw new UserNotFoundException("Usuário não encontrado com ID: " + id);
 		}
-
-		if (!CPFValidator.isValidCPF(user.getCpf())) {
-			logger.error("CPF inválido para atualização: {}", user.getCpf());
-			throw new InvalidCpfException("CPF inválido!");
-		}
-
-		int idade = getIdade(user);
-		user.setIdade(idade); // Atualiza a idade
+		validateUser(user);
 		user.setId(id);
-		User updatedUser = userRepository.save(user);
-
-		logger.info("Usuário atualizado com sucesso: {}", updatedUser);
-		return updatedUser;
+		return userRepository.save(user);
 	}
 
 	public void delete(Long id) {
@@ -91,15 +62,9 @@ public class UserService {
 		return userRepository.existsById(id);
 	}
 
-	public int getIdade(User user) {
-		if (user.getDataNascimento() == null) {
-			logger.warn("Data de nascimento não fornecida para usuário: {}", user);
-			return 0;
+	private void validateUser(User user) {
+		if (!CPFValidator.isValidCPF(user.getCpf())) {
+			throw new InvalidCpfException("CPF inválido!");
 		}
-		LocalDate hoje = LocalDate.now();
-		LocalDate nascimento = user.getDataNascimento();
-		int idade = Period.between(nascimento, hoje).getYears();
-		logger.debug("Idade calculada para o usuário {}: {}", user.getName(), idade);
-		return idade;
 	}
 }

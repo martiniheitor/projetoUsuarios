@@ -1,7 +1,5 @@
 package com.heitor.workshopmysql.config;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +18,9 @@ public class Instantiation implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
 		userRepository.deleteAll();
 
-		User user1 = new User(null, "Heitor Martini de Oliveira", "41478719842",
-				LocalDate.parse("03/10/2004", formatter), "M", "Rua Cayowaá 1210, Apt. 15");
-		user1.setIdade(20);
+		User user1 = new User(null, "Heitor Martini de Oliveira", "41478719842", 20, "M", "Rua Cayowaá 1210, Apt. 15");
 
 		userRepository.saveAll(Arrays.asList(user1));
 	}

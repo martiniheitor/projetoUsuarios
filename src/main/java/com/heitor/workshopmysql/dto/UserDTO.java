@@ -1,26 +1,21 @@
 package com.heitor.workshopmysql.dto;
 
-import java.io.Serializable;
-import java.time.LocalDate;
+import javax.persistence.Column;
 
-public class UserDTO implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-
+public class UserDTO {
 	private Long id;
 	private String name;
+	@Column(unique = true, nullable = false)
 	private String cpf;
-	private LocalDate dataNascimento;
 	private int idade;
 	private String sexo;
 	private String endereco;
 
-	public UserDTO(Long id, String name, String cpf, LocalDate dataNascimento, int idade, String sexo,
-			String endereco) {
+	// Construtores
+	public UserDTO(Long id, String name, String cpf, int idade, String sexo, String endereco) {
 		this.id = id;
 		this.name = name;
 		this.cpf = cpf;
-		this.dataNascimento = dataNascimento;
 		this.idade = idade;
 		this.sexo = sexo;
 		this.endereco = endereco;
@@ -49,14 +44,6 @@ public class UserDTO implements Serializable {
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
-	}
-
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
 	}
 
 	public int getIdade() {
