@@ -1,3 +1,4 @@
+//Instanciação de usuário(s) para teste
 package com.heitor.workshopmysql.config;
 
 import java.util.Arrays;

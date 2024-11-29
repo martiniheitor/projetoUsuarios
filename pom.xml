@@ -1,3 +1,5 @@
+<!-- Project Object Model é o coração de um projeto Maven, 
+utilizado para gerenciar dependências, configurações e o ciclo de vida de build -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -7,11 +9,13 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>projetoUsuarios</name>
 
+	<!-- Propriedades globais, como a versão do Java -->
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 	</properties>
 
+	<!-- Bibliotecas externas necessárias para o projeto -->
 	<dependencies>
 		<!-- Dependência para o Spring Boot Starter Web -->
 		<dependency>
@@ -35,6 +39,7 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Simplifica o código com anotações -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -42,12 +47,15 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- Conexão com o banco de dados MySQL -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.33</version>
 		</dependency>
 
+		<!-- Dependências estão relacionadas ao Java Architecture for XML Binding (JAXB), 
+		uma API usada para converter objetos Java em XML e vice-versa-->
 		<dependency>
 			<groupId>jakarta.xml.bind</groupId>
 			<artifactId>jakarta.xml.bind-api</artifactId>
@@ -66,12 +74,12 @@
 			<version>2.3.1</version>
 		</dependency>
 
-
-
 	</dependencies>
 
+	<!-- Configura como o Maven compila e constrói o projeto -->
 	<build>
 		<plugins>
+			<!-- Define a codificação dos arquivos -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>

@@ -1,3 +1,4 @@
+//Classe responsável pela conexão entre o cliente (frontend) e o banco de dados dos usuários. Faz a requisição HTTP
 package com.heitor.workshopmysql.resources;
 
 import java.util.List;
@@ -25,15 +26,18 @@ import com.heitor.workshopmysql.services.UserService;
 @RequestMapping("/users")
 public class UserResource {
 
+	// Comando que permite conexão com a classe de serviço
 	@Autowired
 	private UserService userService;
 
+	// Função que encaminha o chamado findAll da classe de serviço
 	@GetMapping
 	public List<UserDTO> findAll() {
 		List<User> users = userService.findAll();
 		return users.stream().map(this::convertToDTO).collect(Collectors.toList());
 	}
 
+	// Função que encaminha o chamado findById da classe de serviço
 	@GetMapping("/{id}")
 	public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
 		Optional<User> userOpt = userService.findById(id);
@@ -44,6 +48,7 @@ public class UserResource {
 		return ResponseEntity.notFound().build();
 	}
 
+	// Função que encaminha o chamado findByCPF da classe de serviço
 	@GetMapping("/cpf/{cpf}")
 	public ResponseEntity<UserDTO> findByCPF(@PathVariable String cpf) {
 		Optional<User> userOpt = userService.findByCPF(cpf);
@@ -54,6 +59,7 @@ public class UserResource {
 		return ResponseEntity.notFound().build();
 	}
 
+	// Função que encaminha o função create da calsse de serviço
 	@PostMapping
 	public ResponseEntity<User> create(@RequestBody @Validated User user) {
 		if (user.getIdade() <= 0) {
@@ -67,6 +73,7 @@ public class UserResource {
 		}
 	}
 
+	// Função que encaminha o função update da calsse de serviço
 	@PutMapping("/{id}")
 	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody @Validated User user) {
 		if (user.getIdade() <= 0) {
@@ -76,6 +83,7 @@ public class UserResource {
 		return ResponseEntity.ok(updatedUser);
 	}
 
+	// Função que encaminha o função delete da calsse de serviço
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		if (!userService.existsById(id)) {
@@ -85,6 +93,7 @@ public class UserResource {
 		return ResponseEntity.noContent().build();
 	}
 
+	// Função responsável por converter a entidade User em objeto UserDTO
 	private UserDTO convertToDTO(User user) {
 		return new UserDTO(user.getId(), user.getName(), user.getCpf(), user.getIdade(), user.getSexo(),
 				user.getEndereco());

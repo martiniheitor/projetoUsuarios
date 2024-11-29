@@ -1,3 +1,4 @@
+// Exceção personalizada para lidar com erros relacionados à validação de CPF.
 package com.heitor.workshopmysql.resources.exceptions;
 
 public class InvalidCpfException extends RuntimeException {

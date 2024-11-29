@@ -1,3 +1,4 @@
+//Classe responsável pela criação da entidade "User" no banco de dados
 package com.heitor.workshopmysql.entities;
 
 import java.util.Objects;
@@ -21,6 +22,7 @@ public class User {
 	private String sexo;
 	private String endereco;
 
+	//Construtores
 	public User() {
 	}
 
@@ -33,6 +35,7 @@ public class User {
 		this.endereco = endereco;
 	}
 
+	// Getters e Setters
 	public Long getId() {
 		return id;
 	}
@@ -81,6 +84,7 @@ public class User {
 		this.endereco = endereco;
 	}
 
+	//hashCode and equals
 	@Override
 	public int hashCode() {
 		return Objects.hash(cpf, id);

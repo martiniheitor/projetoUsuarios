@@ -1,3 +1,4 @@
+//Classe resposnável pela transferência de dados dos usuários, omitindo informações sensiveis ou desnecessárias.
 package com.heitor.workshopmysql.dto;
 
 import javax.persistence.Column;

@@ -1,3 +1,4 @@
+//Classe que armazena a lógica por trás da validação do CPF
 package com.heitor.workshopmysql.util;
 
 public class CPFValidator {

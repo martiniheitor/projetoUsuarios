@@ -1,3 +1,4 @@
+//Classe que permite acesso e modificações ao banco de dados dos usuários
 package com.heitor.workshopmysql.repositories;
 
 import java.util.Optional;
